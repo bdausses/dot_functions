@@ -1,0 +1,30 @@
+# SarMem - SAR for memory +/- buffers and cache
+sarmem(){
+sudo sar -r |\
+awk '
+{
+    if (NR > 3 && $3 != "kbmemfree" && $3 != "") {
+        if ($1 != "Average:") {
+            kbmemfree = $3
+            kbmemused = $4
+            kbbuffers = $6
+            kbcached = $7
+        }
+        else {
+            kbmemfree = $2
+            kbmemused = $3
+            kbbuffers = $5
+            kbcached = $6
+        }
+
+        kbfree_plus_bufcache = kbmemfree + kbbuffers + kbcached
+        kbused_minus_bufcache = kbmemused - kbbuffers - kbcached
+
+        printf("%s %15d %15d\n", $0, kbfree_plus_bufcache, kbused_minus_bufcache)
+    } else if ($3 == "kbmemfree") {
+        printf("%s %15s %15s\n", $0, "kbfree+bufcache", "kbused-bufcache")
+    } else {
+        printf("%s\n", $0)
+    }
+}'
+}

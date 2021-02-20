@@ -1,0 +1,8 @@
+# SuperDel - Delete directory using rsync
+superdel () {
+local DIRNAME=$1
+mkdir blankdir
+rsync --delete-before -a --stats blankdir/ "$DIRNAME"
+rmdir blankdir
+rmdir "$DIRNAME"
+}

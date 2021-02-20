@@ -1,0 +1,4 @@
+# Calc - Simple math calculator
+calc () {
+  bc -l <<< "$@"
+}

@@ -1,0 +1,6 @@
+
+# nhdn - Generic nohup > /dev/null structure
+nhdn () {
+local command=$@
+nohup $command > /dev/null 2>&1 &
+}

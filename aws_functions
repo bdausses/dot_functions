@@ -1,0 +1,22 @@
+# awsinstances - List ID, IP, And name
+awsinstances () {
+    aws ec2 describe-instances --filter "Name=instance-state-name,Values=running" "Name=tag:Name,Values=bdausses*" --query "Reservations[].Instances[].[InstanceId, PublicIpAddress, Tags[?Key=='Name'].Value|[0]]"
+}
+
+# awsssh - auto-set the identity file
+awsssh () {
+local REGION=`cat ~/.aws/config|grep ^region|sed 's/ //g'|cut -d "=" -f2`
+ssh -i ~/.aws/keypairs/$REGION.pem $*
+}
+
+# awsterminate - terminate AWS instances
+awsterminate () {
+local INSTANCE_IDS=$*
+aws ec2 terminate-instances --instance-ids $INSTANCE_IDS
+}
+
+#awsips
+awsips () {
+aws ec2 describe-instances --filter "Name=instance-state-name,Values=running" "Name=tag:Name,Values=bdausses*" --query "Reservations[].Instances[].[InstanceId, PublicIpAddress, Tags[?Key=='Name'].Value|[0]]"
+}
+

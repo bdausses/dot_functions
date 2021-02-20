@@ -1,0 +1,4 @@
+# De-dupe ~/.bash_history
+cbh() {
+  gawk -i inplace '!a[$0]++' ~/.bash_history
+}
