@@ -5,7 +5,7 @@ Repo of function files for use with .zshrc or .bashrc
 1.  Clone this repo into your home directroy.
 
 2.  Rename the repo to .functions:
-`mv dot_functions .aliases`
+`mv dot_functions .functions`
 
 3.  Place the following block in your .zshrc file:
 ```
